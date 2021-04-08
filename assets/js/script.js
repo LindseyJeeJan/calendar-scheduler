@@ -13,15 +13,18 @@ function renderCurrentDay() {
 function assignColorClasses() {
     // Get the current time from moment, figure out if it is past, present or future according to the display time for the schedule blocks
     var currentTime = moment().format('HH'); 
+    
     $.each(hourBlocks, function() {
         var blockTime = $(this).attr("data-time"); 
-        if (blockTime <= currentTime) {
-            $(this).siblings('.row').addClass('past');
-        } else if(blockTime >= currentTime) {
-            $(this).siblings('.row').addClass('future');
-        } else {
+        console.log("blockTime", blockTime);
+        console.log("currentTime", currentTime);
+        if (blockTime == currentTime) {
             $(this).siblings('.row').addClass('present');
-        }
+        } else if (blockTime <= currentTime) {
+            $(this).siblings('.row').addClass('past');
+        } else {
+            $(this).siblings('.row').addClass('future');
+        } 
     });
 
 }
@@ -37,6 +40,7 @@ saveButtons.on('click', function(event) {
     // write the textarea value to the description container
     var rowDescription = row.find('.description');
     rowDescription.text(textAreaValue);
+    // TODO: add the description to local storage
     // remove the textarea
     rowTextarea.remove();
 });
@@ -45,6 +49,7 @@ saveButtons.on('click', function(event) {
 timeBlockRows.on('click', function(event) {
     var rowClicked = $(event.target);
     // TODO: only create a textarea if one does not already exist
+    // TODO: display existing description message into the textarea
     var textAreaToDisplay = $("<textarea></textarea>");
     $(this).append(textAreaToDisplay);
     textAreaToDisplay.focus();
