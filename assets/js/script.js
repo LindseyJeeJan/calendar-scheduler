@@ -4,7 +4,7 @@ var timeBlocks = $('.time-block');
 var timeBlockRows = timeBlocks.find('.row');
 var hourBlocks = timeBlocks.find('.hour');
 
-function renderCurrentDay() {
+function renderCurrentDayDisplay() {
     // Get today from moment and format it appropriately, write to page
     var today = moment().format('dddd, MMMM Do');
     currentDay.text(today);
@@ -16,8 +16,6 @@ function assignColorClasses() {
     
     $.each(hourBlocks, function() {
         var blockTime = $(this).attr("data-time"); 
-        console.log("blockTime", blockTime);
-        console.log("currentTime", currentTime);
         if (blockTime == currentTime) {
             $(this).siblings('.row').addClass('present');
         } else if (blockTime <= currentTime) {
@@ -29,9 +27,13 @@ function assignColorClasses() {
 
 }
 
+function renderSchedule() {
+    // TODO: get schedule from Local Storage
+}
+
 // click event to capture the changes when user clicks Save button.
 saveButtons.on('click', function(event) {
-    var buttonClicked = $(event.target);
+    var buttonClicked = $(this);
     // find the row
     var row = buttonClicked.siblings('.row');
     // find the textarea and get its value
@@ -47,24 +49,36 @@ saveButtons.on('click', function(event) {
 
 // click event to convert row to textarea
 timeBlockRows.on('click', function(event) {
-    var rowClicked = $(event.target);
-    // TODO: only create a textarea if one does not already exist
-    // TODO: display existing description message into the textarea
-    var textAreaToDisplay = $("<textarea></textarea>");
-    $(this).append(textAreaToDisplay);
-    textAreaToDisplay.focus();
-    // if the textarea is empty, destroy it
-    textAreaToDisplay.on('blur', function(){
-        if (textAreaToDisplay.val() == ''){
-            textAreaToDisplay.remove();
-        }
-    });
+    var rowClicked = $(this);
+    // Only create a textarea if one does not already exist
+    var existingTextarea = rowClicked.find('textarea'); 
+    if (!$(existingTextarea).length){
+        // Display existing description message in the textarea
+        var existingDesc = rowClicked.find('.description');
+        var existingDescText = existingDesc.text();
+        var textAreaToDisplay = $("<textarea></textarea>");
+        textAreaToDisplay.val(existingDescText);
+        existingDesc.empty();
+        
+        // put new text area into the row
+        $(this).append(textAreaToDisplay);
+        textAreaToDisplay.focus();
+
+        // if the textarea is empty, destroy it
+        textAreaToDisplay.on('blur', function(){
+            if (textAreaToDisplay.val() == ''){
+                textAreaToDisplay.remove();
+            }
+        });
+    }
+
 });
 
 // render the schedule and time display when page loads
 function init(){
-    renderCurrentDay();
+    renderCurrentDayDisplay();
     assignColorClasses();
+    renderSchedule();
 }
 
 init();
