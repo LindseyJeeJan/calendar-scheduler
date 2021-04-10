@@ -2,7 +2,6 @@ var currentDay = $('#currentDay');
 var saveButtons = $('button.save-btn');
 var timeBlocks = $('.time-block');
 var timeBlockRows = timeBlocks.find('.row');
-var hourBlocks = timeBlocks.find('.hour');
 
 var scheduling = {
     9: '',
@@ -16,16 +15,17 @@ var scheduling = {
     17: ''
 };
 
+ // Get today from moment and format it appropriately, write to page
 function renderCurrentDayDisplay() {
-    // Get today from moment and format it appropriately, write to page
     var today = moment().format('dddd, MMMM Do');
     currentDay.text(today);
 }
 
+// Get the current time from moment, figure out if it is past, present or future according to the display time for the schedule blocks
 function assignColorClasses() {
-    // Get the current time from moment, figure out if it is past, present or future according to the display time for the schedule blocks
     var currentTime = moment().format('HH'); 
-    
+    var hourBlocks = timeBlocks.find('.hour');
+
     $.each(hourBlocks, function() {
         var blockTime = $(this).attr("data-time"); 
         if (blockTime == currentTime) {
@@ -39,11 +39,19 @@ function assignColorClasses() {
 
 }
 
+function renderTextareas() {
+    var textarea = $('<textarea class="description"/>');
+    timeBlockRows.append(textarea);
+}
+
+function renderIcons() {
+    var icon = $('<i class="fas fa-save"/>');
+    saveButtons.append(icon);
+}
+
 function renderSchedule() {
     // TODO: get schedule from Local Storage
     var updatedSchedule = JSON.parse(localStorage.getItem("scheduling"));
-    var hours = $('.hour');
-    var hourValue = hours.attr('data-time');
     for (const [key, value] of Object.entries(scheduling)) {
         console.log(`${key}: ${value}`);
     }   
@@ -73,6 +81,8 @@ saveButtons.on('click', function(event) {
 function init(){
     renderCurrentDayDisplay();
     assignColorClasses();
+    renderTextareas();
+    renderIcons();
     renderSchedule();
 }
 
