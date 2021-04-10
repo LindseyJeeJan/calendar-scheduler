@@ -31,10 +31,6 @@ textarea {
   padding: 10px;
 }
 
-.description:empty{
-  padding: 0;
-}
-
 .time-block {
   text-align: center;
   border-radius: 15px;
