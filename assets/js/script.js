@@ -14,15 +14,17 @@ function renderCurrentDayDisplay() {
 // Get the current time from moment, figure out if it is past, present or future according to the display time for the schedule blocks
 function assignColorClasses() {
     var currentTime = moment().format('HH'); 
+    currentTime = parseInt(currentTime);
     var hourBlocks = timeBlocks.find('.hour');
 
     $.each(hourBlocks, function() {
         var blockTime = $(this).attr("data-time"); 
+        blockTime = parseInt(blockTime);
         if (blockTime == currentTime) {
             $(this).siblings('.row').addClass('present');
-        } else if (blockTime <= currentTime) {
+        } else if (blockTime < currentTime) {
             $(this).siblings('.row').addClass('past');
-        } else {
+        } else if (blockTime > currentTime){
             $(this).siblings('.row').addClass('future');
         } 
     });
