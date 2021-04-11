@@ -19,17 +19,14 @@ textarea {
   width: 100%;
 }
 
-main{
-  position: relative;
-}
-
 /* Class styles */
 .jumbotron {
   text-align: center;
-  background-color: transparent;
+  background-color: #f8f9fa;
   color: var(--dark);
   border-radius: 0;
   border-bottom: 10px solid var(--dark);
+  position: relative;
 }
 
 .description {
@@ -57,7 +54,11 @@ main{
   border-top: 1px dashed var(--dark);
   flex: 0 0 10%;
   min-width: 80px;
-  padding: 5px;
+  padding: 10px;
+}
+
+.container .time-block:last-child .hour{
+    border-bottom: 1px dashed var(--dark);
 }
 
 .past {
@@ -96,17 +97,18 @@ main{
   box-shadow: 0px 0px 5px darkblue;
 }
 
-#feedback{
-  text-align: center;
-  font-size:.85rem;
-  position: absolute;
-  top: -20px;
-  width: 100%;
-}
-
 .fa-check-circle{
   color: darkgreen;
   font-size: 1rem;
+  margin-right: 10px;
+}
+
+.alert{
+    position: absolute;
+    display: block;
+    left: 35px;
+    right: 35px;
+    text-align: left;
 }
 
 .code{
@@ -127,5 +129,12 @@ main{
 
   .jumbotron {
     padding: 1rem;
+  }
+
+  .alert{
+        font-size: 0.85rem;
+    left: 10px;
+    right: 10px;
+    line-height: 1.4;
   }
 }

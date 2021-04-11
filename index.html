@@ -16,13 +16,14 @@
 <body>
   <header class="jumbotron">
     <h1 class="display-3">Work Day Scheduler</h1>
-    <p class="lead">A simple calendar app for scheduling your work day</p>
-    <p id="currentDay" class="lead"></p>
+    <p class="lead text-muted">A simple calendar app for scheduling your work day</p>
+    <p id="currentDay" class="lead text-primary"></p>
+    <div style="display: none;" id="feedback" class="alert alert-success mb-0" role="alert">
+      <i class="far fa-check-circle"></i>
+      Successfully added to <span class="code">localStorage</span>.
+    </div>
   </header>
   <main>
-    <div style="display: none;" id="feedback" class="mb-2">
-      <i class="far fa-check-circle"></i> Scheduling appointment was succesfuly added to <span class="code">localStorage</span>.
-    </div>
     <div class="container pb-4">
       <div class="time-block">
         <div class="hour" data-time="9">9AM</div>

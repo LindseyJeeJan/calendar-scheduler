@@ -64,20 +64,18 @@ saveButtons.on('click', function(event) {
     var row = buttonClicked.siblings(timeBlockRows);
     var textAreaValue = row.find('textarea').val().trim();
 
-    if (textAreaValue.length > 0){
-        // find out what hour was saved
-        var hourValue = buttonClicked.closest('.time-block').find('.hour').attr('data-time');
-        // reference that object key and assign the new description
-        scheduling[hourValue] = textAreaValue;
-        //  push to local storage
-        localStorage.setItem("scheduling", JSON.stringify(scheduling));
-         // show feedback
-        feedback.show();
-        setTimeout(function() {
-            feedback.hide();
-            // hide feedback again
-        },1000);      
-    }    
+    // find out what hour was saved
+    var hourValue = buttonClicked.closest('.time-block').find('.hour').attr('data-time');
+    // reference that object key and assign the new description
+    scheduling[hourValue] = textAreaValue;
+    //  push to local storage
+    localStorage.setItem("scheduling", JSON.stringify(scheduling));
+        // show feedback
+    feedback.show();
+    setTimeout(function() {
+        feedback.hide();
+        // hide feedback again
+    },1000);      
 
     renderSchedule() ;
 });
