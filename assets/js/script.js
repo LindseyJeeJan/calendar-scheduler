@@ -2,18 +2,8 @@ var currentDay = $('#currentDay');
 var saveButtons = $('button.save-btn');
 var timeBlocks = $('.time-block');
 var timeBlockRows = timeBlocks.find('.row');
-
-var scheduling = {
-    9: '',
-    10: '',
-    11: '',
-    12: '',
-    13: '',
-    14: '',
-    15: '',
-    16: '',
-    17: ''
-};
+var feedback = $('#feedback');
+var scheduling = {};
 
  // Get today from moment and format it appropriately, write to page
 function renderCurrentDayDisplay() {
@@ -39,39 +29,52 @@ function assignColorClasses() {
 
 }
 
+// Display textareas for the user to input notes in each time block
 function renderTextareas() {
     var textarea = $('<textarea class="description"/>');
     timeBlockRows.append(textarea);
 }
 
+// Display file icons inside each button
 function renderIcons() {
     var icon = $('<i class="fas fa-save"/>');
     saveButtons.append(icon);
 }
 
+// Print the schedule to the page from Local Storage
 function renderSchedule() {
-    // TODO: get schedule from Local Storage
-    var updatedSchedule = JSON.parse(localStorage.getItem("scheduling"));
-    for (const [key, value] of Object.entries(scheduling)) {
-        console.log(`${key}: ${value}`);
-    }   
+    // Clear schedule textarea elements
+    var textareas = $('textarea').val('');
+
+    // loop over schedule object once for each key/value pair, find the matching data-hour attribute and write the value to it's textarea
+        $.each(scheduling, function(key, value) {
+            var makeString = 'div[data-time="' + key + '"]';
+            var match = $(makeString);
+            match.siblings('.row').find('textarea').val(value);
+        });
 }
 
-// click event to capture the changes when user clicks Save button.
+// Click event to capture the changes when user clicks Save button.
 saveButtons.on('click', function(event) {
+    event.preventDefault();
     var buttonClicked = $(this);
-    // find the row
+   // find the textarea and get its value
     var row = buttonClicked.siblings(timeBlockRows);
-    // find the textarea and get its value
-    var rowTextarea = row.find('textarea');
-    var textAreaValue = rowTextarea.val().trim();
+    var textAreaValue = row.find('textarea').val().trim();
+
     if (textAreaValue.length > 0){
         // find out what hour was saved
         var hourValue = buttonClicked.closest('.time-block').find('.hour').attr('data-time');
         // reference that object key and assign the new description
         scheduling[hourValue] = textAreaValue;
         //  push to local storage
-        localStorage.setItem(("scheduling"), JSON.stringify(scheduling));
+        localStorage.setItem("scheduling", JSON.stringify(scheduling));
+         // show feedback
+        feedback.show();
+        setTimeout(function() {
+            feedback.hide();
+            // hide feedback again
+        },1000);      
     }    
 
     renderSchedule() ;
@@ -83,6 +86,15 @@ function init(){
     assignColorClasses();
     renderTextareas();
     renderIcons();
+
+    // Get schedule from localStorage
+  var storedScheduling = JSON.parse(localStorage.getItem("scheduling"));
+  // If schedule appointments were retrieved from localStorage, update the scheduling object to it
+  if (storedScheduling !== null) {
+    scheduling = storedScheduling;
+  }
+
+  // Render schedule to the DOM
     renderSchedule();
 }
 

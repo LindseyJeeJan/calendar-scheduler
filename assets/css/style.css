@@ -19,6 +19,10 @@ textarea {
   width: 100%;
 }
 
+main{
+  position: relative;
+}
+
 /* Class styles */
 .jumbotron {
   text-align: center;
@@ -84,11 +88,30 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  color: var(--dark);
 }
 
 .save-btn:focus{
   outline: none;
   box-shadow: 0px 0px 5px darkblue;
+}
+
+#feedback{
+  text-align: center;
+  font-size:.85rem;
+  position: absolute;
+  top: -20px;
+  width: 100%;
+}
+
+.fa-check-circle{
+  color: darkgreen;
+  font-size: 1rem;
+}
+
+.code{
+  color: magenta;
+  font-family: monospace, monospace;
 }
 
 /* Media queries */
