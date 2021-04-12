@@ -17,6 +17,7 @@ textarea {
   color: var(--dark);
   padding: 10px;
   width: 100%;
+  cursor: text;
 }
 
 /* Class styles */
@@ -112,7 +113,6 @@ textarea {
 }
 
 .code{
-  color: magenta;
   font-family: monospace, monospace;
 }
 
