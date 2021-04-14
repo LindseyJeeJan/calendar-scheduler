@@ -46,14 +46,23 @@ function renderIcons() {
 // Print the schedule to the page from Local Storage
 function renderSchedule() {
     // Clear schedule textarea elements
-    var textareas = $('textarea').val('');
+    $('textarea').val('');
 
-    // loop over schedule object once for each key/value pair, find the matching data-hour attribute and write the value to it's textarea
-        $.each(scheduling, function(key, value) {
-            var makeString = 'div[data-time="' + key + '"]';
-            var match = $(makeString);
-            match.siblings('.row').find('textarea').val(value);
-        });
+    // loop over schedule object once for each key/value pair, find the textarea with the matching data-time attribute and write the scheduling object index's value to the textarea.
+        // loop over object
+        for (var i in scheduling) {
+            var note = scheduling[i];
+            var hour = i;
+            // iterate over textareas
+            $('textarea').each(function(){
+                // get the data-time value
+                var time = $(this).closest('.row').siblings('.hour').attr('data-time');
+                // if they match, write the object key's value to the textarea
+                if (time == hour) {
+                    $(this).val(note);
+                }
+            })
+        }
 }
 
 // Click event to capture the changes when user clicks Save button.
