@@ -97,11 +97,11 @@ function init(){
     renderIcons();
 
     // Get schedule from localStorage
-  var storedScheduling = JSON.parse(localStorage.getItem("scheduling"));
-  // If schedule appointments were retrieved from localStorage, update the scheduling object to it
-  if (storedScheduling !== null) {
-    scheduling = storedScheduling;
-  }
+    var storedScheduling = JSON.parse(localStorage.getItem("scheduling"));
+    // If schedule appointments were retrieved from localStorage, update the scheduling object to it
+    if (storedScheduling !== null) {
+        scheduling = storedScheduling;
+    }
 
   // Render schedule to the DOM
     renderSchedule();
