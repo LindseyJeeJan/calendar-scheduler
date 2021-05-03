@@ -1,7 +1,7 @@
 # calendar-scheduler
 
 Project description:
-Simple calendar application that allows a user to save events for each hour of the day. Uses Bootstrap, jQuery, Moment.js and Font Awesome.
+This simple calendar application allows users to save events for each hour of the day. Entries may be made and saved to local storage for the user to review until the browser cache has been cleared. The application is color coded to show the current hour in pink, the future hours in green and the past in gray. The user may click on any time container and enter their notes, then click on the Save button to save their entry. This application uses Bootstrap, jQuery, Moment.js and Font Awesome.
 
 Link to deployed application:
 https://lindseyjeejan.github.io/calendar-scheduler/
